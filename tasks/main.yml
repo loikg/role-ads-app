@@ -19,6 +19,12 @@
   vars:
     docker_install_compose: true
 
+- name: Docker login to gitlab registry
+  docker_login:
+    username: "{{ lookup('env', 'REGISTRY_USER') }}"
+    password: "{{ lookup('env', 'REGISTRY_PASSWORD') }}"
+    registry: "{{ lookup('env', 'REGISTRY_URL') }}"
+
 - name: Clone infrastructure
   git:
     repo: 'https://github.com/loikg/infrastructure.git'
