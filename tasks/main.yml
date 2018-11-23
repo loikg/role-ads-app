@@ -28,17 +28,17 @@
 - name: Clone infrastructure
   git:
     repo: 'https://github.com/loikg/infrastructure.git'
-    dest: /infrastructure
+    dest: /application/infrastructure
 
 - name: Clone frontend
   git:
     repo: 'https://github.com/loikg/frontend.git'
-    dest: /frontend
+    dest: /application/frontend
 
 - name: Clone backend
   git:
     repo: 'https://github.com/loikg/backend.git'
-    dest: /backend
+    dest: /application/backend
 
 - name: Run docker stack
   docker_service:
