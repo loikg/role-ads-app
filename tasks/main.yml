@@ -1,0 +1,41 @@
+---
+# tasks file for ads-app
+
+- name: Run the equivalent of "apt-get update"
+  apt:
+    update_cache: yes
+
+- name: Install ansible docker dependences
+  import_role:
+    name: geerlingguy.pip
+  vars:
+    pip_install_packages:
+      - name: docker
+      - name: docker-compose
+
+- name: Install docker-ce
+  import_role:
+    name: geerlingguy.docker
+  vars:
+    docker_install_compose: true
+
+- name: Clone infrastructure
+  git:
+    repo: 'https://github.com/loikg/infrastructure.git'
+    dest: /infrastructure
+
+- name: Clone frontend
+  git:
+    repo: 'https://github.com/loikg/frontend.git'
+    dest: /frontend
+
+- name: Clone backend
+  git:
+    repo: 'https://github.com/loikg/backend.git'
+    dest: /backend
+
+- name: Run docker stack
+  docker_service:
+    project_src: "/application/infrastructure"
+    state: present
+    pull: yes
